@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grille</title>
+    <style>
+        .case{
+            width: 160px;
+            height: 160px;
+            background-color: aliceblue;
+        }
+        .row{
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+        .grid{
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: column-reverse;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="grid">
+        {{range .Grid}}
+        <div class="row">
+            {{range .}}
+            <div class="case">
+                {{.}}
+            </div>
+            {{end}}
+        </div>
+        {{end}}
+    </div>
+
+    <form action="/change" method="post">
+        <button type="submit" name="Change" value="y+">Add Y</button>
+    </form>
+    <form action="/change" method="post">
+        <button type="submit" name="Change" value="x+">Add X</button>
+    </form>
+
+</body>
+
+</html>
