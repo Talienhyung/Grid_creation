@@ -5,6 +5,8 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"strconv"
+	"strings"
 )
 
 type Case struct {
@@ -29,6 +31,9 @@ func main() {
 	})
 	http.HandleFunc("/change", func(w http.ResponseWriter, r *http.Request) {
 		TailleGrille(w, r, &grille)
+	})
+	http.HandleFunc("/affiche", func(w http.ResponseWriter, r *http.Request) {
+		Affiche(w, r, &grille)
 	})
 	fs := http.FileServer(http.Dir("static/"))
 	http.Handle("/static/", http.StripPrefix("/static", fs))
@@ -74,5 +79,33 @@ func printGrille(grille [][]Case) {
 			fmt.Print(item2)
 		}
 		fmt.Println("")
+	}
+}
+
+func Affiche(w http.ResponseWriter, r *http.Request, grille *Grille) {
+	affiche := r.FormValue("affiche")
+	tab := strings.Split(affiche, " ")
+	x, _ := strconv.Atoi(tab[0])
+	y, _ := strconv.Atoi(tab[1])
+	ChangeType(&grille.Grid[y][x])
+	http.Redirect(w, r, "/", http.StatusSeeOther)
+}
+
+func ChangeType(cases *Case) {
+	switch cases.Type {
+	case "VIDE":
+		cases.Type = "ONTOP"
+	case "ONTOP":
+		cases.Type = "ONBOTTOM"
+	case "ONBOTTOM":
+		cases.Type = "ONLEFT"
+	case "ONLEFT":
+		cases.Type = "ONRIGHT"
+	case "ONRIGHT":
+		cases.Type = "CENTER"
+	case "CENTER":
+		cases.Type = "BLOCK"
+	case "BLOCK":
+		cases.Type = "VIDE"
 	}
 }
