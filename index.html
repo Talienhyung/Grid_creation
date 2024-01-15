@@ -118,6 +118,21 @@
     <form action="/couche" method="post">
         <button type="submit" name="couche" value="4">Add item</button>
     </form>
+    <form method="post" action="/changeNbr">
+        <div>
+          <input type="radio" id="x" name="choice" value="x" checked>
+          <label for="x">x</label>
+        </div>
+        <div>
+          <input type="radio" id="y" name="choice" value="y">
+          <label for="y">y</label>
+        </div>
+        <input type="number" id="number" name="number" required>
+        <button type="submit">change</button>
+    </form>
+    <form action="/reset" method="post">
+        <button type="submit">Reset</button>
+    </form>
 
     {{template "text" .}}
 </body>
@@ -166,10 +181,10 @@
                 grille->Add({{.X}}, {{.Y}}, Object::{{.Type3}});<br>
             {{end}}
             {{if eq .Flower true}}
-                Flower<br>
+                enemies->AddPostion({{.ItemX}}, {{.ItemY}}, 0);<br>
             {{end}}
             {{if eq .Item true}}
-                Item<br>
+                item->AddPostion({{.ItemX}}, {{.ItemY}}, 0);<br>
             {{end}}
         {{end}}
     {{end}}
