@@ -28,6 +28,9 @@ func Root() {
 	http.HandleFunc("/reset", func(w http.ResponseWriter, r *http.Request) {
 		Reset(w, r, &grille)
 	})
+	http.HandleFunc("/start", func(w http.ResponseWriter, r *http.Request) {
+		StartChange(w, r, &grille)
+	})
 }
 
 // Home handles HTTP requests for the home page and renders the appropriate HTML templates

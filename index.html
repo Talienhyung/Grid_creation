@@ -64,6 +64,16 @@
         .item{
             stroke: red;
         }
+        footer{
+            display: flex;
+            flex-wrap: nowrap;
+            position: absolute;
+            bottom: 0;
+            flex-direction: row;
+            align-items: center;
+            width: 100%;
+            justify-content: center;
+        }
     </style>
 </head>
 
@@ -97,42 +107,8 @@
     <div class="espace">
     </div>
     {{end}}
-    <form action="/change" method="post">
-        <button type="submit" name="Change" value="y+">Add Y</button>
-    </form>
-    <form action="/change" method="post">
-        <button type="submit" name="Change" value="x+">Add X</button>
-    </form>
-    <form action="/couche" method="post">
-        <button type="submit" name="couche" value="0">1</button>
-    </form>
-    <form action="/couche" method="post">
-        <button type="submit" name="couche" value="1">2</button>
-    </form>
-    <form action="/couche" method="post">
-        <button type="submit" name="couche" value="2">3</button>
-    </form>
-    <form action="/couche" method="post">
-        <button type="submit" name="couche" value="3">Add flower</button>
-    </form>
-    <form action="/couche" method="post">
-        <button type="submit" name="couche" value="4">Add item</button>
-    </form>
-    <form method="post" action="/changeNbr">
-        <div>
-          <input type="radio" id="x" name="choice" value="x" checked>
-          <label for="x">x</label>
-        </div>
-        <div>
-          <input type="radio" id="y" name="choice" value="y">
-          <label for="y">y</label>
-        </div>
-        <input type="number" id="number" name="number" required>
-        <button type="submit">change</button>
-    </form>
-    <form action="/reset" method="post">
-        <button type="submit">Reset</button>
-    </form>
+
+    {{template "footer"}}
 
     {{template "text" .}}
 </body>
@@ -190,4 +166,57 @@
     {{end}}
     item->setItemToFind({{.NbrItem}});
 </div>
+{{end}}
+
+
+{{define "footer"}}
+<footer>
+    <form action="/change" method="post">
+        <button type="submit" name="Change" value="y+">Add Y</button>
+    </form>
+    <form action="/change" method="post">
+        <button type="submit" name="Change" value="x+">Add X</button>
+    </form>
+    <form action="/change" method="post">
+        <button type="submit" name="Change" value="x-">Remove X</button>
+    </form>
+    <form action="/change" method="post">
+        <button type="submit" name="Change" value="y-">Remove Y</button>
+    </form>
+    <form action="/couche" method="post">
+        <button type="submit" name="couche" value="0">1</button>
+    </form>
+    <form action="/couche" method="post">
+        <button type="submit" name="couche" value="1">2</button>
+    </form>
+    <form action="/couche" method="post">
+        <button type="submit" name="couche" value="2">3</button>
+    </form>
+    <form action="/couche" method="post">
+        <button type="submit" name="couche" value="3">Add flower</button>
+    </form>
+    <form action="/couche" method="post">
+        <button type="submit" name="couche" value="4">Add item</button>
+    </form>
+    <form method="post" action="/changeNbr">
+        <div>
+          <input type="radio" id="x" name="choice" value="x" checked>
+          <label for="x">x</label>
+        </div>
+        <div>
+          <input type="radio" id="y" name="choice" value="y">
+          <label for="y">y</label>
+        </div>
+        <input type="number" id="number" name="number" required>
+        <button type="submit">change</button>
+    </form>
+    <form method="post" action="/start">
+        <input type="number" id="number" name="start" required>
+        <button type="submit">Change Start</button>
+    </form>
+    <form action="/reset" method="post">
+        <button type="submit">Reset</button>
+    </form>
+</footer>
+
 {{end}}

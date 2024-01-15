@@ -1,6 +1,7 @@
 package GridCreator
 
 import (
+	"log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -11,12 +12,12 @@ func Affiche(w http.ResponseWriter, r *http.Request, grille *Grille) {
 	tab := strings.Split(affiche, " ")
 	x, _ := strconv.Atoi(tab[0])
 	y, _ := strconv.Atoi(tab[1])
-	ChangeType(&grille.Grid[y][x], grille.Couche)
+	ChangeType(&grille.Grid[y][x-grille.Start], grille.Couche, grille.Start)
 	grille.NbrItem = CaculNombreItem(grille.Grid)
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
-func ChangeType(cases *Case, couche int) {
+func ChangeType(cases *Case, couche, start int) {
 	switch couche {
 	case 0:
 		switch cases.Type {
@@ -66,7 +67,7 @@ func ChangeType(cases *Case, couche int) {
 	case 4:
 		cases.Item = !cases.Item
 	}
-	CalculItemPos(cases)
+	CalculItemPos(cases, start)
 }
 
 func Couche(w http.ResponseWriter, r *http.Request, grille *Grille) {
@@ -87,15 +88,16 @@ func CaculNombreItem(grid [][]Case) int {
 }
 
 func Reset(w http.ResponseWriter, r *http.Request, grille *Grille) {
+	log.Println(grille.Start)
 	for y, item := range grille.Grid {
 		for x := range item {
-			grille.Grid[y][x] = Case{x, y, "VIDE", "VIDE", "VIDE", false, false, 0, 0}
+			grille.Grid[y][x] = Case{x + grille.Start, y, "VIDE", "VIDE", "VIDE", false, false, 0, 0}
 		}
 	}
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
-func CalculItemPos(cases *Case) {
+func CalculItemPos(cases *Case, couche int) {
 	if cases.Flower {
 		cases.ItemY = cases.Y*160 + 20
 		cases.ItemX = cases.X*160 + 80
@@ -106,4 +108,10 @@ func CalculItemPos(cases *Case) {
 		cases.ItemX = 0
 		cases.ItemY = 0
 	}
+}
+
+func StartChange(w http.ResponseWriter, r *http.Request, grille *Grille) {
+	start := r.FormValue("start")
+	grille.Start, _ = strconv.Atoi(start)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }

@@ -8,7 +8,7 @@ import (
 func AddX(grille *Grille) {
 	grille.XTaille++
 	for i := 0; i <= grille.YTaille; i++ {
-		grille.Grid[i] = append(grille.Grid[i], Case{grille.XTaille, i, "VIDE", "VIDE", "VIDE", false, false, 0, 0})
+		grille.Grid[i] = append(grille.Grid[i], Case{grille.XTaille + grille.Start, i, "VIDE", "VIDE", "VIDE", false, false, 0, 0})
 	}
 }
 
@@ -17,7 +17,7 @@ func AddY(grille *Grille) {
 	slices := func() []Case {
 		var slice []Case
 		for i := 0; i <= grille.XTaille; i++ {
-			slice = append(slice, Case{i, grille.YTaille, "VIDE", "VIDE", "VIDE", false, false, 0, 0})
+			slice = append(slice, Case{i + grille.Start, grille.YTaille, "VIDE", "VIDE", "VIDE", false, false, 0, 0})
 		}
 		return slice
 	}
@@ -47,11 +47,16 @@ func TailleGrille(w http.ResponseWriter, r *http.Request, grille *Grille) {
 		AddY(grille)
 	case "x+":
 		AddX(grille)
+	case "x-":
+		RmX(grille)
+	case "y-":
+		RmY(grille)
 	}
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
 func RmX(grille *Grille) {
+	grille.XTaille--
 	if len(grille.Grid) == 0 || len(grille.Grid[0]) == 0 {
 		return
 	}
@@ -62,6 +67,7 @@ func RmX(grille *Grille) {
 }
 
 func RmY(grille *Grille) {
+	grille.YTaille--
 	if len(grille.Grid) == 0 || len(grille.Grid[0]) == 0 {
 		return
 	}
