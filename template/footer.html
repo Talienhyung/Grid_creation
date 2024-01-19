@@ -1,0 +1,61 @@
+{{define "footer"}}
+<footer>
+    <div>
+        <form action="/change" method="post">
+            <button type="submit" name="Change" value="y+">Add Y</button>
+        </form>
+        <form action="/change" method="post">
+            <button type="submit" name="Change" value="x+">Add X</button>
+        </form>
+    </div>
+    <div>
+        <form action="/change" method="post">
+            <button type="submit" name="Change" value="x-">Remove X</button>
+        </form>
+        <form action="/change" method="post">
+            <button type="submit" name="Change" value="y-">Remove Y</button>
+        </form>
+    </div>
+    <br>
+    <form action="/couche" method="post">
+        <button type="submit" name="couche" value="0">1</button>
+    </form>
+    <form action="/couche" method="post">
+        <button type="submit" name="couche" value="1">2</button>
+    </form>
+    <form action="/couche" method="post">
+        <button type="submit" name="couche" value="2">3</button>
+    </form>
+    <br>
+    <div>
+        <form action="/couche" method="post">
+            <button type="submit" name="couche" value="3">Add flower</button>
+        </form>
+        <form action="/couche" method="post">
+            <button type="submit" name="couche" value="4">Add item</button>
+        </form>
+    </div>
+    <br>
+    <form method="post" action="/changeNbr">
+        <div>
+          <input type="radio" id="x" name="choice" value="x" checked>
+          <label for="x">x</label>
+          <input type="radio" id="y" name="choice" value="y">
+          <label for="y">y</label>
+        </div>
+        <input type="number" id="number" name="number" required>
+        <button type="submit">change</button>
+    </form>
+    <br>
+    <form method="post" action="/start">
+        <div>
+            <input type="number" id="number" name="start" required>
+            <button type="submit">Change Start</button>
+        </div>
+    </form>
+    <br>
+    <form action="/reset" method="post">
+        <button type="submit">Reset</button>
+    </form>
+</footer>
+{{end}}

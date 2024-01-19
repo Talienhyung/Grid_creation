@@ -37,6 +37,9 @@ func Root() {
 func Home(w http.ResponseWriter, r *http.Request, infos Grille) {
 	template, err := template.ParseFiles(
 		"./index.html",
+		"./template/case.html",
+		"./template/footer.html",
+		"./template/text.html",
 	)
 	if err != nil {
 		log.Fatal(err)

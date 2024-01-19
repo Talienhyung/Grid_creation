@@ -1,0 +1,27 @@
+{{define "case"}}
+<svg class="svgcase {{if eq .Type "CENTER"}} center {{else if eq .Type "BLOCK"}} block {{end}}" viewBox="0 0 50 50">
+    <line class="{{if eq .Type "ONTOP"}}display{{end}}" x1="0" y1="0" x2="50" y2="0"></line>
+    <line class="{{if eq .Type "ONTOP"}}display{{end}}" x1="25" y1="0" x2="25" y2="5"></line>
+    <line class="{{if eq .Type "ONBOTTOM"}}display{{end}}" x1="0" y1="50" x2="50" y2="50"></line>
+    <line class="{{if eq .Type "ONLEFT"}}display{{end}}" x1="0" y1="0" x2="0" y2="50"></line>
+    <line class="{{if eq .Type "ONLEFT"}}display{{end}}" x1="0" y1="25" x2="5" y2="25"></line>
+    <line class="{{if eq .Type "ONRIGHT"}}display{{end}}" x1="50" y1="0" x2="50" y2="50"></line>
+    
+    <line class="{{if eq .Type2 "ONTOP"}}display{{end}}" x1="0" y1="0" x2="50" y2="0"></line>
+    <line class="{{if eq .Type2 "ONTOP"}}display{{end}}" x1="25" y1="0" x2="25" y2="5"></line>
+    <line class="{{if eq .Type2 "ONBOTTOM"}}display{{end}}" x1="0" y1="50" x2="50" y2="50"></line>
+    <line class="{{if eq .Type2 "ONLEFT"}}display{{end}}" x1="0" y1="0" x2="0" y2="50"></line>
+    <line class="{{if eq .Type2 "ONLEFT"}}display{{end}}" x1="0" y1="25" x2="5" y2="25"></line>
+    <line class="{{if eq .Type2 "ONRIGHT"}}display{{end}}" x1="50" y1="0" x2="50" y2="50"></line>
+
+    <line class="{{if eq .Type3 "ONTOP"}}display{{end}}" x1="0" y1="0" x2="50" y2="0"></line>
+    <line class="{{if eq .Type3 "ONTOP"}}display{{end}}" x1="25" y1="0" x2="25" y2="5"></line>
+    <line class="{{if eq .Type3 "ONBOTTOM"}}display{{end}}" x1="0" y1="50" x2="50" y2="50"></line>
+    <line class="{{if eq .Type3 "ONLEFT"}}display{{end}}" x1="0" y1="0" x2="0" y2="50"></line>
+    <line class="{{if eq .Type3 "ONLEFT"}}display{{end}}" x1="0" y1="25" x2="5" y2="25"></line>
+    <line class="{{if eq .Type3 "ONRIGHT"}}display{{end}}" x1="50" y1="0" x2="50" y2="50"></line>
+
+    <line class="{{if eq .Flower true}}display flower{{end}}" x1="25" y1="50" x2="25" y2="25"></line>
+    <line class="{{if eq .Item true}}display item{{end}}" x1="25" y1="25" x2="25" y2="25"></line>
+</svg>
+{{end}}

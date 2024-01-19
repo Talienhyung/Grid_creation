@@ -1,0 +1,27 @@
+
+{{define "text"}}
+<div class="container">
+<div class="text">
+    {{range .Grid}}
+        {{range .}}
+            {{if ne .Type "VIDE"}}
+                grille->Add({{.X}}, {{.Y}}, Object::{{.Type}});<br>
+            {{end}}
+            {{if ne .Type2 "VIDE"}}
+                grille->Add({{.X}}, {{.Y}}, Object::{{.Type2}});<br>
+            {{end}}
+            {{if ne .Type3 "VIDE"}}
+                grille->Add({{.X}}, {{.Y}}, Object::{{.Type3}});<br>
+            {{end}}
+            {{if eq .Flower true}}
+                enemies->AddPostion({{.ItemX}}, {{.ItemY}}, 0);<br>
+            {{end}}
+            {{if eq .Item true}}
+                item->AddPostion({{.ItemX}}, {{.ItemY}}, 0);<br>
+            {{end}}
+        {{end}}
+    {{end}}
+    item->setItemToFind({{.NbrItem}});
+</div>
+</div>
+{{end}}

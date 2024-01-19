@@ -4,77 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grille</title>
-    <style>
-        .case{
-            width: 50px;
-            height: 50px;
-            background-color: aliceblue;
-        }
-        .case2{
-            width: 50px;
-            height: 50px;
-        }
-        .row{
-            display: flex;
-            flex-wrap: nowrap;
-            flex-direction: row;
-            justify-content: flex-start;
-        }
-        .grid{
-            display: flex;
-            flex-wrap: nowrap;
-            position: absolute;
-            flex-direction: column-reverse;
-        }
-        .grid2{
-            position: absolute;
-            display: flex;
-            flex-wrap: nowrap;
-            flex-direction: column-reverse;
-        }
-        .case2 form button{
-            width: 50px;
-            height: 50px;
-            opacity: 0;
-        }
-        .svgcase{
-            fill: none;
-            stroke-width: 25;
-            transition: 0.30s;
-            stroke-linecap: round;
-            stroke-miterlimit: 10;
-        }
-        .display{
-            display: grid;
-            stroke: black;
-        }
-        .center{
-            background-color: rgb(90, 90, 90);
-        }
-        .block{
-            background-color: black;
-        }
-        .espace{
-            width: 50px;
-            height: 50px;
-        }
-        .flower{
-            stroke: green;
-        }
-        .item{
-            stroke: red;
-        }
-        footer{
-            display: flex;
-            flex-wrap: nowrap;
-            position: absolute;
-            bottom: 0;
-            flex-direction: row;
-            align-items: center;
-            width: 100%;
-            justify-content: center;
-        }
-    </style>
+    <link rel="stylesheet" href="./static/style.css">
 </head>
 
 <body>
@@ -103,6 +33,7 @@
         </div>
         {{end}}
     </div>
+
     {{range .Grid}}
     <div class="espace">
     </div>
@@ -114,109 +45,3 @@
 </body>
 
 </html>
-
-{{define "case"}}
-<svg class="svgcase {{if eq .Type "CENTER"}} center {{else if eq .Type "BLOCK"}} block {{end}}" viewBox="0 0 50 50">
-    <line class="{{if eq .Type "ONTOP"}}display{{end}}" x1="0" y1="0" x2="50" y2="0"></line>
-    <line class="{{if eq .Type "ONTOP"}}display{{end}}" x1="25" y1="0" x2="25" y2="5"></line>
-    <line class="{{if eq .Type "ONBOTTOM"}}display{{end}}" x1="0" y1="50" x2="50" y2="50"></line>
-    <line class="{{if eq .Type "ONLEFT"}}display{{end}}" x1="0" y1="0" x2="0" y2="50"></line>
-    <line class="{{if eq .Type "ONLEFT"}}display{{end}}" x1="0" y1="25" x2="5" y2="25"></line>
-    <line class="{{if eq .Type "ONRIGHT"}}display{{end}}" x1="50" y1="0" x2="50" y2="50"></line>
-    
-    <line class="{{if eq .Type2 "ONTOP"}}display{{end}}" x1="0" y1="0" x2="50" y2="0"></line>
-    <line class="{{if eq .Type2 "ONTOP"}}display{{end}}" x1="25" y1="0" x2="25" y2="5"></line>
-    <line class="{{if eq .Type2 "ONBOTTOM"}}display{{end}}" x1="0" y1="50" x2="50" y2="50"></line>
-    <line class="{{if eq .Type2 "ONLEFT"}}display{{end}}" x1="0" y1="0" x2="0" y2="50"></line>
-    <line class="{{if eq .Type2 "ONLEFT"}}display{{end}}" x1="0" y1="25" x2="5" y2="25"></line>
-    <line class="{{if eq .Type2 "ONRIGHT"}}display{{end}}" x1="50" y1="0" x2="50" y2="50"></line>
-
-    <line class="{{if eq .Type3 "ONTOP"}}display{{end}}" x1="0" y1="0" x2="50" y2="0"></line>
-    <line class="{{if eq .Type3 "ONTOP"}}display{{end}}" x1="25" y1="0" x2="25" y2="5"></line>
-    <line class="{{if eq .Type3 "ONBOTTOM"}}display{{end}}" x1="0" y1="50" x2="50" y2="50"></line>
-    <line class="{{if eq .Type3 "ONLEFT"}}display{{end}}" x1="0" y1="0" x2="0" y2="50"></line>
-    <line class="{{if eq .Type3 "ONLEFT"}}display{{end}}" x1="0" y1="25" x2="5" y2="25"></line>
-    <line class="{{if eq .Type3 "ONRIGHT"}}display{{end}}" x1="50" y1="0" x2="50" y2="50"></line>
-
-    <line class="{{if eq .Flower true}}display flower{{end}}" x1="25" y1="50" x2="25" y2="25"></line>
-    <line class="{{if eq .Item true}}display item{{end}}" x1="25" y1="25" x2="25" y2="25"></line>
-</svg>
-{{end}}
-
-{{define "text"}}
-<div>
-    {{range .Grid}}
-        {{range .}}
-            {{if ne .Type "VIDE"}}
-                grille->Add({{.X}}, {{.Y}}, Object::{{.Type}});<br>
-            {{end}}
-            {{if ne .Type2 "VIDE"}}
-                grille->Add({{.X}}, {{.Y}}, Object::{{.Type2}});<br>
-            {{end}}
-            {{if ne .Type3 "VIDE"}}
-                grille->Add({{.X}}, {{.Y}}, Object::{{.Type3}});<br>
-            {{end}}
-            {{if eq .Flower true}}
-                enemies->AddPostion({{.ItemX}}, {{.ItemY}}, 0);<br>
-            {{end}}
-            {{if eq .Item true}}
-                item->AddPostion({{.ItemX}}, {{.ItemY}}, 0);<br>
-            {{end}}
-        {{end}}
-    {{end}}
-    item->setItemToFind({{.NbrItem}});
-</div>
-{{end}}
-
-
-{{define "footer"}}
-<footer>
-    <form action="/change" method="post">
-        <button type="submit" name="Change" value="y+">Add Y</button>
-    </form>
-    <form action="/change" method="post">
-        <button type="submit" name="Change" value="x+">Add X</button>
-    </form>
-    <form action="/change" method="post">
-        <button type="submit" name="Change" value="x-">Remove X</button>
-    </form>
-    <form action="/change" method="post">
-        <button type="submit" name="Change" value="y-">Remove Y</button>
-    </form>
-    <form action="/couche" method="post">
-        <button type="submit" name="couche" value="0">1</button>
-    </form>
-    <form action="/couche" method="post">
-        <button type="submit" name="couche" value="1">2</button>
-    </form>
-    <form action="/couche" method="post">
-        <button type="submit" name="couche" value="2">3</button>
-    </form>
-    <form action="/couche" method="post">
-        <button type="submit" name="couche" value="3">Add flower</button>
-    </form>
-    <form action="/couche" method="post">
-        <button type="submit" name="couche" value="4">Add item</button>
-    </form>
-    <form method="post" action="/changeNbr">
-        <div>
-          <input type="radio" id="x" name="choice" value="x" checked>
-          <label for="x">x</label>
-        </div>
-        <div>
-          <input type="radio" id="y" name="choice" value="y">
-          <label for="y">y</label>
-        </div>
-        <input type="number" id="number" name="number" required>
-        <button type="submit">change</button>
-    </form>
-    <form method="post" action="/start">
-        <input type="number" id="number" name="start" required>
-        <button type="submit">Change Start</button>
-    </form>
-    <form action="/reset" method="post">
-        <button type="submit">Reset</button>
-    </form>
-</footer>
-
-{{end}}
